@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "testgen"
+version = "0.1.0"
+description = "Generate structured test cases from software requirements using Claude."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Nishant Gaurav" }]
+keywords = ["testing", "qa", "sdet", "test-cases", "ai", "claude", "llm"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "anthropic>=0.40",
+    "pydantic>=2.0",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+testgen = "testgen.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["testgen"]
+
+[tool.pytest.ini_options]
+# Our domain models (TestCase, TestSuite, TestType, TestStep) start with "Test",
+# which pytest would otherwise try to collect as test classes. Tests here are
+# function-based, so restrict class collection to an unused prefix.
+python_classes = "Check"
