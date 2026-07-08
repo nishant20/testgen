@@ -55,7 +55,7 @@ flowchart LR
 Requires Python 3.10+.
 
 ```bash
-git clone https://github.com/<your-username>/testgen.git
+git clone https://github.com/nishant20/testgen.git
 cd testgen
 python -m venv .venv
 # Windows:  .venv\Scripts\activate
