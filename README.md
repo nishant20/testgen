@@ -32,16 +32,16 @@ new inputs and outputs be added without touching the core.
 
 ```mermaid
 flowchart LR
-    R[Requirement / user story] --> A
-    S[API spec  *planned*] -. .-> A
-    C[Source code  *planned*] -. .-> A
-    A[Input adapter] --> G[Generator - Claude]
-    G --> T[(TestSuite<br/>shared contract)]
+    R[Requirement / user story] --> A[Input adapter]
+    S[API spec - planned] -.-> A
+    C[Source code - planned] -.-> A
+    A --> G[Generator - Claude]
+    G --> T[(TestSuite - shared contract)]
     T --> M[Markdown]
     T --> V[CSV]
     T --> J[JSON]
-    T -. .-> GH[Gherkin  *planned*]
-    T -. .-> Q[qTest-style export  *planned*]
+    T -.-> GH[Gherkin - planned]
+    T -.-> Q[qTest-style export - planned]
 ```
 
 - **Adapters** (`testgen/adapters/`) normalize any input into a `GenerationContext`.
