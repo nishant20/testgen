@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>testgen</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header>
+  <h1>testgen</h1>
+  <p class="tagline">AI-assisted test case generation, powered by Claude.</p>
+</header>
+
+<main>
+  <section id="input-section">
+    <label for="requirement">Requirement / user story</label>
+    <textarea id="requirement" rows="4"
+      placeholder="As a user, I want to reset my password via an emailed link."></textarea>
+
+    <label for="instructions">Extra instructions <span class="optional">(optional)</span></label>
+    <textarea id="instructions" rows="2"
+      placeholder="e.g. focus on security and boundary cases"></textarea>
+
+    <label for="model">Model</label>
+    <input id="model" type="text" />
+
+    <button id="generate-btn" type="button">Generate</button>
+    <div id="error-banner" class="error-banner hidden"></div>
+  </section>
+
+  <section id="results-section" class="hidden">
+    <div class="suite-header">
+      <label for="feature">Feature</label>
+      <input id="feature" type="text" />
+
+      <label for="summary">Summary</label>
+      <textarea id="summary" rows="3"></textarea>
+    </div>
+
+    <div id="cases"></div>
+
+    <button id="add-case-btn" type="button">+ Add case</button>
+
+    <div class="export-bar">
+      <label for="export-format">Export as</label>
+      <select id="export-format">
+        <option value="markdown">Markdown</option>
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+      </select>
+      <button id="download-btn" type="button">Download</button>
+    </div>
+  </section>
+</main>
+
+<template id="case-template">
+  <article class="case-card">
+    <div class="case-card-header">
+      <span class="case-id"></span>
+      <button class="delete-case-btn" type="button">Delete</button>
+    </div>
+
+    <label>Title</label>
+    <input class="f-title" type="text" />
+
+    <div class="row">
+      <div>
+        <label>Type</label>
+        <select class="f-type"></select>
+      </div>
+      <div>
+        <label>Priority</label>
+        <select class="f-priority"></select>
+      </div>
+    </div>
+
+    <label>Preconditions <span class="hint">(one per line)</span></label>
+    <textarea class="f-preconditions" rows="2"></textarea>
+
+    <label>Steps</label>
+    <div class="steps"></div>
+    <button class="add-step-btn" type="button">+ Add step</button>
+
+    <label>Test data <span class="hint">(one per line)</span></label>
+    <textarea class="f-test-data" rows="2"></textarea>
+
+    <label>Tags <span class="hint">(comma-separated)</span></label>
+    <input class="f-tags" type="text" />
+  </article>
+</template>
+
+<template id="step-template">
+  <div class="step-row">
+    <input class="f-step-action" type="text" placeholder="Action" />
+    <input class="f-step-expected" type="text" placeholder="Expected result" />
+    <button class="remove-step-btn" type="button">&times;</button>
+  </div>
+</template>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

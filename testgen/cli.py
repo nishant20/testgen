@@ -89,5 +89,32 @@ def generate(
         typer.echo(rendered)
 
 
+@app.command()
+def serve(
+    host: str = typer.Option("127.0.0.1", "--host", help="Interface to bind to."),
+    port: int = typer.Option(8000, "--port", help="Port to listen on."),
+    open_browser: bool = typer.Option(
+        True, "--browser/--no-browser", help="Open the UI in a browser on startup."
+    ),
+) -> None:
+    """Launch the local web UI."""
+    try:
+        import uvicorn
+    except ImportError:
+        typer.echo(
+            "The web UI requires the 'web' extra. Install it with:\n"
+            "  pip install -e '.[web]'",
+            err=True,
+        )
+        raise typer.Exit(code=1)
+
+    if open_browser:
+        import webbrowser
+
+        webbrowser.open(f"http://{host}:{port}")
+
+    uvicorn.run("testgen.web.app:app", host=host, port=port)
+
+
 if __name__ == "__main__":
     app()

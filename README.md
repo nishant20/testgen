@@ -101,10 +101,23 @@ testgen --file examples/password_reset.txt --instructions "focus on security and
 Each test case includes an ID, title, type, priority, preconditions, concrete
 test data, numbered steps with expected results, and tags.
 
+## Web UI
+
+A local web UI wraps the same pipeline as the CLI: enter a requirement, generate
+a suite, edit test cases in the browser, then export.
+
+```bash
+pip install -e ".[web]"
+testgen serve
+```
+
+This opens `http://127.0.0.1:8000` (use `--host`/`--port`/`--no-browser` to
+change that). It uses the same `ANTHROPIC_API_KEY` as the CLI.
+
 ## Development
 
 ```bash
-pip install -e ".[dev]"
+pip install -e ".[web,dev]"
 pytest
 ```
 
@@ -120,7 +133,7 @@ The formatter tests run offline (no API calls), so they're a fast, green baselin
 - [ ] Gherkin output
 - [ ] **Test-management exporter** — push generated cases to a qTest-style REST API
       (create + map), with execution hooks
-- [ ] Optional web UI
+- [x] Optional web UI
 
 ## About
 
